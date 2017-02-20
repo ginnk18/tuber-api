@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: tuber_api_dev
+  username: vagrant
+  password: vagrant
+
+test:
+  <<: *default
+  database: tuber_api_test
+
+production:
+  <<: *default
