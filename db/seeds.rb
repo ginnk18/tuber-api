@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 puts "Seeding Data ..."
 
 # Helper functions
@@ -23,7 +15,7 @@ end
 
 ## CATEGORIES
 
-puts "Finding or Creating Subjects ..."
+puts "Creating Subjects ..."
 
 sub1 = Subject.find_or_create_by! name: 'Visual Arts'
 sub2 = Subject.find_or_create_by! name: 'Geography'
@@ -52,7 +44,7 @@ puts "Creating Tutors ..."
 Tutor.destroy_all
 
 Tutor.create(name:             'Julio Coolio',
-             education:        'BSc Computer Science',
+             education:        'BA Sociology',
              experience:       '5 years tutoring',
              email:            'blah@blah.com',
              phone:            14037709052,
@@ -62,18 +54,143 @@ Tutor.create(name:             'Julio Coolio',
              is_available:     false,
              subjects_taught:  [3, 7],
              password_hash:    'u2n340523',
-             avatar:           'avatar1.jpg'
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Biff Clay',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah2@blah2.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       4000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [6, 15],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Zinat Agresta',
+             education:        'BSc Chemistry',
+             experience:       '5 years tutoring',
+             email:            'blah3@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3500,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Frederik Campbell',
+             education:        'Engineering',
+             experience:       '5 years tutoring',
+             email:            'blah4@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Otávio Beránek',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah5@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Berry Jakobsen',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah6@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Pyrrhos Pontecorvo',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah7@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Ealasaid Spooner',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah8@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
+            )
+
+Tutor.create(name:             'Pauleen Blum',
+             education:        'BSc Computer Science',
+             experience:       '5 years tutoring',
+             email:            'blah9@blah.com',
+             phone:            14037709052,
+             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
+             rate_cents:       3000,
+             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
+             is_available:     false,
+             subjects_taught:  [3, 7],
+             password_hash:    'u2n340523',
+             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
 ## STUDENTS
 
 puts "Creating students ..."
 
-Student.create(name: "Needs 2pass", email: 'student@student.student', current_location: '{long: 100, lat: 60}')
+Student.destroy_all
+
+Student.create(name: "Tomiko Sheach", email: 'student1@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Masamba Tiraboschi", email: 'student2@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Lynsey Adam", email: 'student3@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Hilde Gage", email: 'student4@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Oliwia Valenti", email: 'student5@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Democritus Cavanagh", email: 'student6@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Reut Moonrain", email: 'student7@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Silke Kravitz", email: 'student8@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Tahvo O'Leary", email: 'student9@student.student', current_location: '{long: 100, lat: 60}')
+Student.create(name: "Seema Haraldsson", email: 'student10@student.student', current_location: '{long: 100, lat: 60}')
 
 ## REVIEWS
 
 puts "Creating reviews ..."
+
+Review.destroy_all
 
 Review.create(student_id: 1, tutor_id: 1, content: 'great', rating: 4)
 
