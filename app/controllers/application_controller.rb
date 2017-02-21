@@ -1,16 +1,17 @@
 class ApplicationController < ActionController::API
 
-  before_action :ensure_json_request
 
-  def ensure_json_request
-    return if request.format == :json
-    render :nothing => true, :status => 406
-  end
+  # To make sure the request is expecting json
+  # before_action :ensure_json_request
+  # def ensure_json_request
+  #   return if request.format == :json
+  #   render :nothing => true, :status => 406
+  # end
 
   include ActionController::ImplicitRender
 
-  acts_as_token_authentication_handler_for User, fallback_to_devise: false
-  before_action :authenticate_api_user!
+  # acts_as_token_authentication_handler_for User, fallback_to_devise: false
+  # before_action :authenticate_api_user!
 
   respond_to :json
 
