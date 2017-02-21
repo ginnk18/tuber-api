@@ -23,3 +23,8 @@ Things you may want to cover:
 
 * ...
 # tuber-api
+
+## Usage
+- `gem install bundler`
+- `bundle install`
+- `bin\rake db:create`
