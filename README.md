@@ -22,9 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-# tuber-api
-
-## Usage
-- `gem install bundler`
-- `bundle install`
-- `bin\rake db:create`

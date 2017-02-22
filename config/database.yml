@@ -22,3 +22,4 @@ production:
   database: tuber_api_prod
   username: vagrant
   password: vagrant
+

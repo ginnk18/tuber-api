@@ -1,21 +1,9 @@
-require 'api_constraints'
-
 Rails.application.routes.draw do
-
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :tutors
   resources :students
   resources :reviews
   resources :subjects
-
-
-  # This handles routes to api, not needed for this app
-  # namespace :api, defaults: { format: :json }, constraints: { subdomain: 'api' }, path: '/' do
-  #   scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-  #     resources :tutors
-  #     resources :students
-  #     resources :reviews
-  #     resources :subjects
-  #   end
-  # end
+  resources :users
 
 end

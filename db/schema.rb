@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221150649) do
+ActiveRecord::Schema.define(version: 20170222204156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "reviews", force: :cascade do |t|
-    t.integer  "student_id"
     t.integer  "tutor_id"
+    t.integer  "student_id"
     t.text     "content"
     t.integer  "rating"
     t.datetime "created_at", null: false
@@ -29,10 +29,11 @@ ActiveRecord::Schema.define(version: 20170221150649) do
   create_table "students", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "password_hash"
     t.string   "current_location"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "user_id"
+    t.index ["user_id"], name: "index_students_on_user_id", using: :btree
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -60,11 +61,23 @@ ActiveRecord::Schema.define(version: 20170221150649) do
     t.string   "current_location"
     t.boolean  "is_available"
     t.string   "subjects_taught"
-    t.string   "password_hash"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "avatar"
     t.string   "name"
+    t.string   "user_id"
+    t.index ["user_id"], name: "index_tutors_on_user_id", using: :btree
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "email"
+    t.string   "student_or_tutor"
+    t.string   "password_digest"
+    t.string   "token"
+    t.text     "description"
+    t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
 end

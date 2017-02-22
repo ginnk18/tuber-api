@@ -10,7 +10,6 @@ class CreateTutors < ActiveRecord::Migration[5.0]
       t.string :current_location
       t.boolean :is_available
       t.string :subjects
-      t.string :password_hash
 
       t.timestamps
     end

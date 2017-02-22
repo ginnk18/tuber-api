@@ -13,6 +13,20 @@ end
 
 # Let's do this ...
 
+## USERS
+
+puts "Creating Users ..."
+
+User.create(email: 'scrub1@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub2@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub3@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub4@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub5@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub6@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub7@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub8@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub9@scrub.com', student_or_tutor: "student", password: "test")
+
 ## CATEGORIES
 
 puts "Creating Subjects ..."
@@ -53,7 +67,6 @@ Tutor.create(name:             'Julio Coolio',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -67,7 +80,6 @@ Tutor.create(name:             'Biff Clay',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [6, 15],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -81,7 +93,6 @@ Tutor.create(name:             'Zinat Agresta',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -95,7 +106,6 @@ Tutor.create(name:             'Frederik Campbell',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -109,7 +119,6 @@ Tutor.create(name:             'Otávio Beránek',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -123,7 +132,6 @@ Tutor.create(name:             'Berry Jakobsen',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -137,7 +145,6 @@ Tutor.create(name:             'Pyrrhos Pontecorvo',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -151,7 +158,6 @@ Tutor.create(name:             'Ealasaid Spooner',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 
@@ -165,7 +171,6 @@ Tutor.create(name:             'Pauleen Blum',
              current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
              is_available:     false,
              subjects_taught:  [3, 7],
-             password_hash:    'u2n340523',
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
 

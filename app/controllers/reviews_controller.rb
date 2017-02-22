@@ -1,5 +1,4 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
 
   # GET /reviews
   def index
@@ -24,9 +23,9 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
 
     if @review.save
-      redirect_to @review, notice: 'Review was successfully created.'
+      #redirect_to @review, notice: 'Review was successfully created.'
     else
-      render :new
+      #render :new
     end
   end
 

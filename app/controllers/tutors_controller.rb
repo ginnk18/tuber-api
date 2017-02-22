@@ -1,9 +1,8 @@
 class TutorsController < ApplicationController
-  before_action :set_tutor, only: [:show, :edit, :update, :destroy]
 
-  # GET /tutors
+
+   # GET /tutors
   def index
-    puts 'here'
     @tutors = Tutor.all
     render json: @tutors
   end
