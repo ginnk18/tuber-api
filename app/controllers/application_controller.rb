@@ -1,4 +1,5 @@
-  before_action :validate_login
+class ApplicationController < ActionController::API
+ before_action :validate_login
 
   def validate_login
     token = request.headers["X-Api-Key"]
@@ -22,3 +23,4 @@
       logged_in: (@current_user ? true : false)
     }
   end
+end
