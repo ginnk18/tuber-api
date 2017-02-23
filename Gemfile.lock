@@ -168,6 +168,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   listen (~> 3.0.5)
+  minitest
   pg
   puma (~> 3.0)
   rack-cors
@@ -179,4 +180,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.14.4

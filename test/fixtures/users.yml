@@ -1,7 +1,8 @@
 # users.yml
 <% 6.times do |i| %>
 user_<%= i %>:
-  eamil: <%= "User Email#{i}" %>
+  student_or_tutor: "Tutor"
+  email: <%= "User Email#{i}" %>
   password_digest: <%= BCrypt::Password.create('password') %>
   token: <%= SecureRandom.base58(24) %>
 <% end %>
