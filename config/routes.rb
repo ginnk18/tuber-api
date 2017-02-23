@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   resources :subjects
   resources :users
 
+  post    'sessions'     => 'sessions#create'
+  delete  'sessions/:id' => 'sessions#destroy'
+
 end
