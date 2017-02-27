@@ -22,6 +22,8 @@ class TutorsController < ApplicationController
 
   # POST /tutors
   def create
+    console.log('Im in creat tutor')
+    byebug
     @tutor = Tutor.new(tutor_params)
 
     if @tutor.save

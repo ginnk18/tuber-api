@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    byebug
     new_user_params = {password_digest: BCrypt::Password.create(params['password']),
                    token: SecureRandom.base58(24),
                    email: params['email'],
@@ -41,6 +42,7 @@ class UsersController < ApplicationController
       end
       render json: user, status: :created
     else
+      puts "hailing from react"
       head 400
     end
   end
