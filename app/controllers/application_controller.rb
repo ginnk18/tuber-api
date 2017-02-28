@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  require 'json_web_token'
+  require 'jwt'
   # before_action :validate_login
 
   # def validate_login

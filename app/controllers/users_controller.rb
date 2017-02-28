@@ -41,9 +41,10 @@ class UsersController < ApplicationController
         )
         student.save
       end
+      puts 'here' + user.to_s
       render json: {status: "User successfully created", user: user}, status: :created
     else
-      head { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: user.errors.full_messages }, status: :bad_request
     end
   end
 
