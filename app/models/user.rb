@@ -4,6 +4,6 @@ class User < ApplicationRecord
 
   validates :email, presence: true
 
-  # has_many :tutors
-  # has_many :students
+  has_many :tutors
+  has_many :students
 end

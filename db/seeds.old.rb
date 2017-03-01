@@ -17,13 +17,15 @@ end
 
 puts "Creating Users ..."
 
-def generate_user
-  User.create!(
-    email: Faker::Internet.free_email,
-    student_or_tutor: ["student", "tutor"].sample
-    password: "test"
-  )      
-end
+User.create(email: 'scrub1@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub2@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub3@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub4@scrub.com', student_or_tutor: "tutor", password: "test")
+User.create(email: 'scrub5@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub6@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub7@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub8@scrub.com', student_or_tutor: "student", password: "test")
+User.create(email: 'scrub9@scrub.com', student_or_tutor: "student", password: "test")
 
 ## CATEGORIES
 

@@ -9,6 +9,12 @@ class TutorsController < ApplicationController
 
   # GET /tutors/1
   def show
+    tutor = Tutor.find(params["id"])
+    if tutor
+      render json: tutor, status: :created
+    else
+      render status: :bad_request
+    end
   end
 
   # GET /tutors/new
