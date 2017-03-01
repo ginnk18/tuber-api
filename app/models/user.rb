@@ -10,7 +10,7 @@ class User < ApplicationRecord
   def downcase_email
     self.email = self.email.delete(' ').downcase
   end
-  # has_many :tutors
-  # has_many :students
 
+  has_many :tutors
+  has_many :students
 end

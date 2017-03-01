@@ -1,32 +1,20 @@
 class ReviewsController < ApplicationController
 
-  # GET /reviews
-  def index
-    @reviews = Review.all
-  end
-
-  # GET /reviews/1
-  def show
-  end
-
-  # GET /reviews/new
-  def new
-    @review = Review.new
-  end
-
   # GET /reviews/1/edit
   def edit
   end
 
   # POST /reviews
   def create
-    @review = Review.new(review_params)
+    tutor = Tutor.find(params["tutor_id"])
+    @review = tutor.reviews.new(review_params)
 
     if @review.save
-      #redirect_to @review, notice: 'Review was successfully created.'
+      response = {status: "Your review has been saved", reviews: tutor.reviews}, status: :created
     else
-      #render :new
+      response = {status: "Couldn't save that", reviews: tutor.reviews}, status: :bad_request
     end
+    render json: response
   end
 
   # PATCH/PUT /reviews/1

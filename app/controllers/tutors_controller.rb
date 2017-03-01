@@ -9,6 +9,12 @@ class TutorsController < ApplicationController
 
   # GET /tutors/1
   def show
+    tutor = Tutor.find(params["id"])
+    if tutor
+      render json: tutor, status: :created
+    else
+      render status: :bad_request
+    end
   end
 
   # GET /tutors/new
@@ -22,6 +28,8 @@ class TutorsController < ApplicationController
 
   # POST /tutors
   def create
+    console.log('Im in creat tutor')
+    byebug
     @tutor = Tutor.new(tutor_params)
 
     if @tutor.save
