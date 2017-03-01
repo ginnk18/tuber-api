@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   resources :subjects
   resources :users
 
-
   root to: 'tutors#index'
 
   post    'sessions'     => 'sessions#create'
   delete  'sessions/:id' => 'sessions#destroy'
+
+  get 'tutors/search/:search_term' => 'tutors#search'
 
 end
