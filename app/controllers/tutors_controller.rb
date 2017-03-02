@@ -12,7 +12,7 @@ class TutorsController < ApplicationController
     tutor = Tutor.find(params["id"])
     if tutor
       tutor.email = tutor.user.email
-      render json: tutor, :include => [:reviews, {:user => {only: :description}}], status: :created
+      render json: tutor, :include => [:reviews, :subjects, {:user => {only: :description}}], status: :created
     else
       render status: :bad_request
     end
@@ -54,6 +54,19 @@ class TutorsController < ApplicationController
     @tutor.destroy
     redirect_to tutors_url, notice: 'Tutor was successfully destroyed.'
   end
+
+  # Search /tutors/search/:term
+  def search
+    puts 'in search endpoint. subject:'
+    search_term = params[:search_term]
+    search_term[0] = ''
+    subject = Subject.find_by(name: search_term)
+    puts subject.inspect
+    tutors = subject.tutors
+    puts subject.tutors
+    render json: tutors, status: 200
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

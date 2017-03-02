@@ -27,12 +27,6 @@ def create_subject(subject)
   Subject.create!(name: subject)
 end
 
-def set_subjects_taught
-  subjs = []
-  (1 + rand(15)).times { |_| subjs << SUBJECTS.sample }
-  subjs.uniq
-end
-
 def create_tutor(id, u_id)
   Tutor.create!(
     id:               id,
@@ -50,7 +44,6 @@ def create_tutor(id, u_id)
                         other: Faker::Address.street_address
                       }.to_json,
     status_code:     [*1..3].sample,
-    subjects_taught:  "#{set_subjects_taught}",
     avatar:           Faker::LoremPixel.image,
     user_id:          u_id 
   )
@@ -91,7 +84,7 @@ Student.destroy_all
 puts "Destroying old tutors"
 Tutor.destroy_all
 
-puts "Destroying subjects"
+puts "Destroying old subjects"
 Subject.destroy_all
 
 puts "Destroying old users"
@@ -122,6 +115,16 @@ forced_id = 1
     create_tutor(forced_id, u_id)
     forced_id += 1
   end
+end
+
+Tutor.all.each do |tutor|
+  subjects = []
+  (rand(4)+1).times do
+      subjects.push(Subject.find(rand(19)+1))
+  end
+  puts 'subjects'
+  puts subjects
+  tutor.subjects = subjects
 end
 
 ## STUDENTS

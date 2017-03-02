@@ -1,4 +1,6 @@
-class TutorSubject < ApplicationRecord
-  belongs_to :tutor
-  belongs_to :subject
-end
+# class TutorSubject < ApplicationRecord
+#   belongs_to :tutor
+#   belongs_to :subject
+
+
+# end
