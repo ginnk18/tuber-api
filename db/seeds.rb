@@ -60,7 +60,7 @@ def create_student(id, u_id)
                         lat: 50 + (rand(300_000) / 10_000.0),
                         other: Faker::Address.street_address
                       }.to_json,
-    avatar:           Faker::LoremPixel.image,
+    avatar:           Faker::Avatar.image,
     user_id:          u_id 
   )
 end
