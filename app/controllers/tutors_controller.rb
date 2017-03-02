@@ -48,8 +48,14 @@ class TutorsController < ApplicationController
 
   # Search /tutors/search/:term
   def search
-    puts 'in search endpoint'
-    @tutors = Tutor.where()
+    puts 'in search endpoint. subject:'
+    search_term = params[:search_term]
+    search_term[0] = ''
+    subject = Subject.find_by(name: search_term)
+    puts subject.inspect
+    tutors = subject.tutors
+    puts subject.tutors
+    render json: tutors, status: 200
   end
 
 

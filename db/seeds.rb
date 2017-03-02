@@ -177,7 +177,7 @@ puts 'here'
 
 Tutor.all.each do |tutor|
   subjects = []
-  rand(4).times do
+  (rand(4)+1).times do
       subjects.push(Subject.find(rand(19)+1))
   end
   puts 'subjects'
