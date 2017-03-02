@@ -35,24 +35,23 @@ end
 
 def create_tutor(id, u_id)
   Tutor.create!(
-    id: id,
+    id:               id,
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
     experience:       "#{1 + rand(30)} years tutoring",
     phone:            "#{400 + rand(280)}-#{100 + rand(899)}-#{2000 + rand(7999)}",
-    hours:            "{
-                        mon: [[9, 17]], tue: [[9, 17]], wed: [[9, 17]], thu: [[9, 17]], fri: [[9, 17]], sat: [[9, 17]], sun: [[9, 17]]}",
+    hours:            { mon: [[9, 17]], tue: [[9, 17]], wed: [[9, 17]], thu: [[9, 17]], fri: [[9, 17]], sat: [[9, 17]], sun: [[9, 17]]}.to_json,
     rate_cents:       rand(100) * 100,
-    current_location: "{
+    current_location: {
                         country: 'Canada',
-                        city: #{Faker::Address.city},
-                        long: #{50 + (rand(900_000) / 10_000.0)},
-                        lat: #{50 + (rand(300_000) / 10_000.0)}
-                        other: #{Faker::Address.street_address}
-                      }",
-    is_available:     [*1..3].sample,
+                        city: Faker::Address.city,
+                        long: 50 + (rand(900_000) / 10_000.0),
+                        lat: 50 + (rand(300_000) / 10_000.0),
+                        other: Faker::Address.street_address
+                      }.to_json,
+    status_code:     [*1..3].sample,
     subjects_taught:  "#{set_subjects_taught}",
-    avatar:           "#{Faker::LoremPixel.image}",
+    avatar:           Faker::LoremPixel.image,
     user_id:          u_id 
   )
 end
@@ -68,7 +67,7 @@ def create_student(id, u_id)
                         lat: #{50 + (rand(300_000) / 10_000.0)}
                         other: #{Faker::Address.street_address}
                       }",
-    avatar:           "#{Faker::LoremPixel.image}",
+    avatar:           Faker::LoremPixel.image,
     user_id:          u_id 
   )
 end

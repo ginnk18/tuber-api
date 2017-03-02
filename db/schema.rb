@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227170613) do
+ActiveRecord::Schema.define(version: 20170302164613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,13 +60,13 @@ ActiveRecord::Schema.define(version: 20170227170613) do
     t.string   "hours"
     t.integer  "rate_cents"
     t.string   "current_location"
-    t.boolean  "is_available"
     t.string   "subjects_taught"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "avatar"
     t.string   "name"
     t.string   "user_id"
+    t.integer  "status_code"
     t.index ["user_id"], name: "index_tutors_on_user_id", using: :btree
   end
 
