@@ -53,13 +53,13 @@ def create_student(id, u_id)
   Student.create!(
     id: id,
     name:             Faker::Name.name,
-    current_location: "{
+    current_location: {
                         country: 'Canada',
-                        city: #{Faker::Address.city},
-                        long: #{50 + (rand(900_000) / 10_000.0)},
-                        lat: #{50 + (rand(300_000) / 10_000.0)}
-                        other: #{Faker::Address.street_address}
-                      }",
+                        city: Faker::Address.city,
+                        long: 50 + (rand(900_000) / 10_000.0),
+                        lat: 50 + (rand(300_000) / 10_000.0),
+                        other: Faker::Address.street_address
+                      }.to_json,
     avatar:           Faker::LoremPixel.image,
     user_id:          u_id 
   )
@@ -120,11 +120,11 @@ end
 Tutor.all.each do |tutor|
   subjects = []
   (rand(4)+1).times do
-      subjects.push(Subject.find(rand(19)+1))
+      subjects.push(Subject.all.sample)
   end
   puts 'subjects'
   puts subjects
-  tutor.subjects = subjects
+  tutor.subjects = subjects.uniq
 end
 
 ## STUDENTS
