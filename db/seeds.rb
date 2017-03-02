@@ -173,6 +173,17 @@ Tutor.create(name:             'Pauleen Blum',
              subjects_taught:  [3, 7],
              avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
             )
+puts 'here'
+
+Tutor.all.each do |tutor|
+  subjects = []
+  rand(4).times do
+      subjects.push(Subject.find(rand(19)+1))
+  end
+  puts 'subjects'
+  puts subjects
+  tutor.subjects = subjects
+end
 
 ## STUDENTS
 

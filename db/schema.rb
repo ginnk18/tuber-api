@@ -42,13 +42,11 @@ ActiveRecord::Schema.define(version: 20170222204156) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tutor_subjects", force: :cascade do |t|
-    t.integer  "tutor_id"
-    t.integer  "subject_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_tutor_subjects_on_subject_id", using: :btree
-    t.index ["tutor_id"], name: "index_tutor_subjects_on_tutor_id", using: :btree
+  create_table "subjects_tutors", id: false, force: :cascade do |t|
+    t.integer "tutor_id"
+    t.integer "subject_id"
+    t.index ["subject_id"], name: "index_subjects_tutors_on_subject_id", using: :btree
+    t.index ["tutor_id"], name: "index_subjects_tutors_on_tutor_id", using: :btree
   end
 
   create_table "tutors", force: :cascade do |t|
