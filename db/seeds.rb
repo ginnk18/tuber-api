@@ -12,189 +12,133 @@ end
 # end
 
 # Let's do this ...
-
-## USERS
-
-puts "Creating Users ..."
-
-def generate_user
+puts 'building the factories'
+def create_user(id)
   User.create!(
-    email: Faker::Internet.free_email,
-    student_or_tutor: ["student", "tutor"].sample
-    password: "test"
+    id:               id,
+    description:      Faker::Hipster.paragraph(5),
+    email:            Faker::Internet.free_email,
+    student_or_tutor: ["student", "tutor"].sample,
+    password:         "test"
   )      
 end
 
-## CATEGORIES
+def create_subject(subject)
+  Subject.create!(name: subject)
+end
 
-puts "Creating Subjects ..."
+def set_subjects_taught
+  subjs = []
+  (1 + rand(15)).times { |_| subjs << SUBJECTS.sample }
+  subjs.uniq
+end
 
-sub1 = Subject.find_or_create_by! name: 'Visual Arts'
-sub2 = Subject.find_or_create_by! name: 'Geography'
-sub3 = Subject.find_or_create_by! name: 'History'
-sub4 = Subject.find_or_create_by! name: 'Literature'
-sub5 = Subject.find_or_create_by! name: 'Philosophy'
-sub6 = Subject.find_or_create_by! name: 'Economics'
-sub7 = Subject.find_or_create_by! name: 'Law'
-sub8 = Subject.find_or_create_by! name: 'Political science'
-sub9 = Subject.find_or_create_by! name: 'Psychology'
-sub10 = Subject.find_or_create_by! name: 'Sociology'
-sub11 = Subject.find_or_create_by! name: 'Biology'
-sub12 = Subject.find_or_create_by! name: 'Chemistry'
-sub13 = Subject.find_or_create_by! name: 'Earth and space sciences'
-sub14 = Subject.find_or_create_by! name: 'Mathematics'
-sub15 = Subject.find_or_create_by! name: 'Physics'
-sub16 = Subject.find_or_create_by! name: 'Agriculture'
-sub17 = Subject.find_or_create_by! name: 'Computer science'
-sub18 = Subject.find_or_create_by! name: 'Engineering'
-sub19 = Subject.find_or_create_by! name: 'Medicine'
+def create_tutor(id, u_id)
+  Tutor.create!(
+    id: id,
+    name:             Faker::Name.name,
+    education:        Faker::Educator.course,
+    experience:       "#{1 + rand(30)} years tutoring",
+    phone:            "#{400 + rand(280)}-#{100 + rand(899)}-#{2000 + rand(7999)}",
+    hours:            "{
+                        mon: [[9, 17]], tue: [[9, 17]], wed: [[9, 17]], thu: [[9, 17]], fri: [[9, 17]], sat: [[9, 17]], sun: [[9, 17]]}",
+    rate_cents:       rand(100) * 100,
+    current_location: "{
+                        country: 'Canada',
+                        city: #{Faker::Address.city},
+                        long: #{50 + (rand(900_000) / 10_000.0)},
+                        lat: #{50 + (rand(300_000) / 10_000.0)}
+                        other: #{Faker::Address.street_address}
+                      }",
+    is_available:     [*1..3].sample,
+    subjects_taught:  "#{set_subjects_taught}",
+    avatar:           "#{Faker::LoremPixel.image}",
+    user_id:          u_id 
+  )
+end
 
-## PRODUCTS
+def create_student(id, u_id)
+  Student.create!(
+    id: id,
+    name:             Faker::Name.name,
+    current_location: "{
+                        country: 'Canada',
+                        city: #{Faker::Address.city},
+                        long: #{50 + (rand(900_000) / 10_000.0)},
+                        lat: #{50 + (rand(300_000) / 10_000.0)}
+                        other: #{Faker::Address.street_address}
+                      }",
+    avatar:           "#{Faker::LoremPixel.image}",
+    user_id:          u_id 
+  )
+end
 
-puts "Creating Tutors ..."
+def create_review(t_id, s_id)
+  Review.create!(
+    tutor_id:   t_id,
+    student_id: s_id,
+    content:    Faker::Hipster.paragraph(4),
+    rating:     1 + rand(4)
+  )
+end
 
-Tutor.destroy_all
-
-Tutor.create(name:             'Julio Coolio',
-             education:        'BA Sociology',
-             experience:       '5 years tutoring',
-             email:            'blah@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Biff Clay',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah2@blah2.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       4000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [6, 15],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Zinat Agresta',
-             education:        'BSc Chemistry',
-             experience:       '5 years tutoring',
-             email:            'blah3@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3500,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Frederik Campbell',
-             education:        'Engineering',
-             experience:       '5 years tutoring',
-             email:            'blah4@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Otávio Beránek',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah5@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Berry Jakobsen',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah6@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Pyrrhos Pontecorvo',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah7@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Ealasaid Spooner',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah8@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-Tutor.create(name:             'Pauleen Blum',
-             education:        'BSc Computer Science',
-             experience:       '5 years tutoring',
-             email:            'blah9@blah.com',
-             phone:            14037709052,
-             hours:            "{m: '9-5', tu: '9-5', we: '9-5', th: '9-5', fr: '9-5', sa: '9-5', su: '9-5'}",
-             rate_cents:       3000,
-             current_location: "{country: 'Canada', city: 'Calgary', long: 100, lat: 60}",
-             is_available:     false,
-             subjects_taught:  [3, 7],
-             avatar:           'assets/images/default_profile_images_default_profile_6_400x400.png'
-            )
-
-## STUDENTS
-
-puts "Creating students ..."
-
-Student.destroy_all
-
-Student.create(name: "Tomiko Sheach", email: 'student1@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Masamba Tiraboschi", email: 'student2@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Lynsey Adam", email: 'student3@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Hilde Gage", email: 'student4@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Oliwia Valenti", email: 'student5@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Democritus Cavanagh", email: 'student6@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Reut Moonrain", email: 'student7@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Silke Kravitz", email: 'student8@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Tahvo O'Leary", email: 'student9@student.student', current_location: '{long: 100, lat: 60}')
-Student.create(name: "Seema Haraldsson", email: 'student10@student.student', current_location: '{long: 100, lat: 60}')
-
-## REVIEWS
-
-puts "Creating reviews ..."
-
+## Destroying existing records
+puts "Destroying old reviews"
 Review.destroy_all
 
-Review.create(student_id: 1, tutor_id: 1, content: 'great', rating: 4)
+puts "Destroying old students"
+Student.destroy_all
+
+puts "Destroying old tutors"
+Tutor.destroy_all
+
+puts "Destroying subjects"
+Subject.destroy_all
+
+puts "Destroying old users"
+User.destroy_all
+
+## USERS
+puts "Creating Users ..."
+100.times { |id| create_user(id) }
+
+## SUBJECTS
+puts "Creating Subjects ..."
+SUBJECTS = [
+  'Visual Arts', 'Geography', 'History',
+  'Literature', 'Philosophy', 'Economics',
+  'Law', 'Political science', 'Psychology',
+  'Sociology', 'Biology', 'Chemistry',
+  'Earth and space sciences', 'Mathematics',
+  'Physics', 'Agriculture', 'Computer science',
+  'Engineering', 'Medicine'
+]
+SUBJECTS.each { |s| create_subject(s) }
+
+## TUTORS
+puts "Creating Tutors ..."
+forced_id = 1
+100.times do |u_id|
+  if u_id.odd?
+    create_tutor(forced_id, u_id)
+    forced_id += 1
+  end
+end
+
+## STUDENTS
+puts "Creating students ..."
+forced_id = 1
+100.times do |u_id|
+  if u_id.even?
+    create_student(forced_id, u_id)
+    forced_id += 1
+  end
+end
+
+## REVIEWS
+puts "Creating reviews ..."
+[*1..50].combination(2) do |tutor_id, student_id|
+  create_review(tutor_id, student_id) if [true, false].sample
+end
 
 puts "DONE!"
