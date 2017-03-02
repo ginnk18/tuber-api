@@ -1,9 +1,6 @@
 class SessionsController < ApplicationController
   def create
     data = ActiveModelSerializers::Deserialization.jsonapi_parse(params)
-    puts 'data:'
-    puts params.inspect
-    puts 'params.email' + params[:email].to_s
     Rails.logger.error params.to_yaml
     user = User.where(email: params[:email]).first
     head 406 and return unless user
@@ -15,7 +12,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    user = User.where(token: params[:id]).first
+    token = params[:id]
+    token[0] = ''  # Get rid of the prepended colon
+    user = User.where(token: token).first
     head 404 and return unless user
     user.regenerate_token
     head 204
