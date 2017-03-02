@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 20170302164613) do
     t.text     "education"
     t.text     "experience"
     t.string   "email"
-    t.string   "phone"
     t.string   "hours"
     t.integer  "rate_cents"
     t.string   "current_location"
@@ -63,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170302164613) do
     t.datetime "updated_at",       null: false
     t.string   "avatar"
     t.string   "name"
+    t.string   "phone"
     t.string   "user_id"
     t.integer  "status_code"
     t.index ["user_id"], name: "index_tutors_on_user_id", using: :btree
