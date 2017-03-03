@@ -20,14 +20,14 @@ def create_user(id)
     email:            Faker::Internet.free_email,
     student_or_tutor: ["student", "tutor"].sample,
     password:         "test"
-  )      
+  )
 end
 
 def create_subject(subject)
   Subject.create!(name: subject)
 end
 
-def create_tutor(id, u_id)
+def create_tutor(id, u_id, cities)
   Tutor.create!(
     id:               id,
     name:             Faker::Name.name,
@@ -38,14 +38,14 @@ def create_tutor(id, u_id)
     rate_cents:       rand(100) * 100,
     current_location: {
                         country: 'Canada',
-                        city: Faker::Address.city,
+                        city: cities.sample,
                         long: 50 + (rand(900_000) / 10_000.0),
                         lat: 50 + (rand(300_000) / 10_000.0),
                         other: Faker::Address.street_address
                       }.to_json,
     status_code:     [*1..3].sample,
     avatar:           Faker::LoremPixel.image,
-    user_id:          u_id 
+    user_id:          u_id
   )
 end
 
@@ -61,7 +61,7 @@ def create_student(id, u_id)
                         other: #{Faker::Address.street_address}
                       }",
     avatar:           Faker::LoremPixel.image,
-    user_id:          u_id 
+    user_id:          u_id
   )
 end
 
@@ -108,11 +108,16 @@ SUBJECTS = [
 SUBJECTS.each { |s| create_subject(s) }
 
 ## TUTORS
+CITIES = ["Calgary", "Edmonton", "Hamilton",
+          "Kitchener", "Montreal", "Ottawa",
+          "Quebec City", "Toronto", "Vancouver",
+          "Winnipeg"]
+
 puts "Creating Tutors ..."
 forced_id = 1
 100.times do |u_id|
   if u_id.odd?
-    create_tutor(forced_id, u_id)
+    create_tutor(forced_id, u_id, CITIES)
     forced_id += 1
   end
 end
@@ -122,8 +127,6 @@ Tutor.all.each do |tutor|
   (rand(4)+1).times do
       subjects.push(Subject.find(rand(19)+1))
   end
-  puts 'subjects'
-  puts subjects
   tutor.subjects = subjects
 end
 

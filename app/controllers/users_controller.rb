@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    byebug
     new_user_params = {password_digest: BCrypt::Password.create(params['password']),
                    token: SecureRandom.base58(24),
                    email: params['email'],
