@@ -125,6 +125,7 @@ end
 ## REVIEWS
 puts "Creating reviews ..."
 tutors = Tutor.all.pluck(:id).to_a
+p tutors.take(5)
 students = Student.all.pluck(:id).to_a
 tutors.product(students).each do |tutor_id, student_id|
   create_review(tutor_id, student_id) if [true, false].sample
