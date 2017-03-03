@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    byebug
     new_user_params = {password_digest: BCrypt::Password.create(params['password']),
                    token: SecureRandom.base58(24),
                    email: params['email'],
@@ -34,6 +33,7 @@ class UsersController < ApplicationController
                           user_id:          user['id']
         )
         tutor.save
+        render json: {status: "User successfully created", user: tutor}, status: :created
       else
         # SAVE STUDENT INFO
         student = Student.new(name: params['name'],
@@ -41,9 +41,9 @@ class UsersController < ApplicationController
                               user_id: user['id'],
         )
         student.save
+        render json: {status: "User successfully created", user: student}, status: :created
       end
-      puts 'here' + user.to_s
-      render json: {status: "User successfully created", user: user}, status: :created
+      
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
