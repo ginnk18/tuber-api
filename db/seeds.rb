@@ -13,9 +13,8 @@ end
 
 # Let's do this ...
 puts 'building the factories'
-def create_user(id)
+def create_user
   User.create!(
-    id:               id,
     description:      Faker::Hipster.paragraph(5),
     email:            Faker::Internet.free_email,
     student_or_tutor: ["student", "tutor"].sample,
@@ -27,9 +26,8 @@ def create_subject(subject)
   Subject.create!(name: subject)
 end
 
-def create_tutor(id, u_id)
+def create_tutor(u_id)
   Tutor.create!(
-    id:               id,
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
     experience:       "#{1 + rand(30)} years tutoring",
@@ -49,9 +47,8 @@ def create_tutor(id, u_id)
   )
 end
 
-def create_student(id, u_id)
+def create_student(u_id)
   Student.create!(
-    id: id,
     name:             Faker::Name.name,
     current_location: {
                         country: 'Canada',
@@ -92,7 +89,7 @@ User.destroy_all
 
 ## USERS
 puts "Creating Users ..."
-100.times { |id| create_user(id) }
+100.times { create_user }
 
 ## SUBJECTS
 puts "Creating Subjects ..."
@@ -107,13 +104,13 @@ SUBJECTS = [
 ]
 SUBJECTS.each { |s| create_subject(s) }
 
-## TUTORS
-puts "Creating Tutors ..."
-forced_id = 1
-100.times do |u_id|
-  if u_id.odd?
-    create_tutor(forced_id, u_id)
-    forced_id += 1
+## TUTORS and STUDENTS
+puts "Creating Tutors and Students..."
+User.all.each do |user|
+  if user.student_or_tutor == "tutor"
+    create_tutor(user.id)
+  else
+    create_student(user.id)
   end
 end
 
@@ -122,24 +119,14 @@ Tutor.all.each do |tutor|
   (rand(4)+1).times do
       subjects.push(Subject.all.sample)
   end
-  puts 'subjects'
-  puts subjects
   tutor.subjects = subjects.uniq
-end
-
-## STUDENTS
-puts "Creating students ..."
-forced_id = 1
-100.times do |u_id|
-  if u_id.even?
-    create_student(forced_id, u_id)
-    forced_id += 1
-  end
 end
 
 ## REVIEWS
 puts "Creating reviews ..."
-[*1..50].combination(2) do |tutor_id, student_id|
+tutors = Tutor.all.pluck(:id).to_a
+students = Student.all.pluck(:id).to_a
+tutors.product(students).each do |tutor_id, student_id|
   create_review(tutor_id, student_id) if [true, false].sample
 end
 
