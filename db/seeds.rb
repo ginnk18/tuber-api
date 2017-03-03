@@ -17,7 +17,7 @@ def create_user(id)
   User.create!(
     id:               id,
     description:      Faker::Hipster.paragraph(5),
-    email:            Faker::Internet.free_email,
+    email:            Faker::Internet.free_email + id.to_s,
     student_or_tutor: ["student", "tutor"].sample,
     password:         "test"
   )
@@ -92,7 +92,7 @@ User.destroy_all
 
 ## USERS
 puts "Creating Users ..."
-100.times { |id| create_user(id) }
+500.times { |id| create_user(id) }
 
 ## SUBJECTS
 puts "Creating Subjects ..."
@@ -115,7 +115,7 @@ CITIES = ["Calgary", "Edmonton", "Hamilton",
 
 puts "Creating Tutors ..."
 forced_id = 1
-100.times do |u_id|
+500.times do |u_id|
   if u_id.odd?
     create_tutor(forced_id, u_id, CITIES)
     forced_id += 1
