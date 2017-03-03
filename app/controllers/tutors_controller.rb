@@ -65,7 +65,8 @@ class TutorsController < ApplicationController
   def search
     puts 'in search endpoint. subject:'
     search_term = params[:search_term]
-    search_term[0] = ''
+    puts search_term
+    # search_term[0] = ''
     subject = Subject.find_by(name: search_term)
     puts subject.inspect
     tutors = subject.tutors
