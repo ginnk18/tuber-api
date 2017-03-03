@@ -12,7 +12,13 @@ class TutorsController < ApplicationController
     tutor = Tutor.find(params["id"])
     if tutor
       tutor.email = tutor.user.email
-      render json: tutor, :include => [:reviews, :subjects, {:user => {only: :description}}], status: :created
+      render json: tutor,
+             include: [
+                        {:reviews => {:include => :student}},
+                        :subjects,
+                        {:user => {only: :description}}
+                      ],
+             status: :created
     else
       render status: :bad_request
     end
