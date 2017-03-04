@@ -9,9 +9,11 @@ class ReviewsController < ApplicationController
     tutor = Tutor.find(params["tutor_id"])
     @review = tutor.reviews.new(review_params)
     if @review.save
-      render json: {status: "Your review has been saved", reviews: tutor.reviews}, status: :created
+      render json: tutor.reviews,
+             :include => :student,
+             status: :created
     else
-      render json: {status: "Couldn't save that", reviews: tutor.reviews}, status: :bad_request
+      render json: status: :bad_request
     end
   end
 

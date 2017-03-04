@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     new_user_params = {password_digest: BCrypt::Password.create(params['password']),
                    token: SecureRandom.base58(24),
                    email: params['email'],
-                   student_or_tutor: params['student_or_tutor']}
+                   student_or_tutor: params['student_or_tutor'],
+                   description: "some placeholder description till we figure out what to do"}
     user = User.new(new_user_params)
     if user.save
       puts 'student_or_tutor'
@@ -36,6 +37,10 @@ class UsersController < ApplicationController
         render json: {status: "User successfully created", user: tutor}, status: :created
       else
         # SAVE STUDENT INFO
+
+        # Adds some default for development - to figure out what to do in production
+        params['name'] ||= Faker::Name.name
+        params['avatar'] ||= Faker::Avatar.image
         params['current_location'] ||= {
                         country: 'Canada',
                         city: Faker::Address.city,
