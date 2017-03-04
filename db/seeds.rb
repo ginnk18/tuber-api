@@ -16,17 +16,21 @@ puts 'building the factories'
 def create_user
   User.create!(
     description:      Faker::Hipster.paragraph(5),
-    email:            Faker::Internet.free_email,
+    email:            Faker::Internet.free_email + id.to_s,
     student_or_tutor: ["student", "tutor"].sample,
     password:         "test"
-  )      
+  )
 end
 
 def create_subject(subject)
   Subject.create!(name: subject)
 end
 
+<<<<<<< HEAD
+def create_tutor(id, u_id, cities)
+=======
 def create_tutor(u_id)
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
   Tutor.create!(
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
@@ -36,14 +40,14 @@ def create_tutor(u_id)
     rate_cents:       rand(100) * 100,
     current_location: {
                         country: 'Canada',
-                        city: Faker::Address.city,
+                        city: cities.sample,
                         long: 50 + (rand(900_000) / 10_000.0),
                         lat: 50 + (rand(300_000) / 10_000.0),
                         other: Faker::Address.street_address
                       }.to_json,
     status_code:     [*1..3].sample,
     avatar:           Faker::LoremPixel.image,
-    user_id:          u_id 
+    user_id:          u_id
   )
 end
 
@@ -58,7 +62,7 @@ def create_student(u_id)
                         other: Faker::Address.street_address
                       }.to_json,
     avatar:           Faker::Avatar.image,
-    user_id:          u_id 
+    user_id:          u_id
   )
 end
 
@@ -89,7 +93,11 @@ User.destroy_all
 
 ## USERS
 puts "Creating Users ..."
+<<<<<<< HEAD
+500.times { |id| create_user(id) }
+=======
 100.times { create_user }
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
 
 ## SUBJECTS
 puts "Creating Subjects ..."
@@ -104,6 +112,20 @@ SUBJECTS = [
 ]
 SUBJECTS.each { |s| create_subject(s) }
 
+<<<<<<< HEAD
+## TUTORS
+CITIES = ["Calgary", "Edmonton", "Hamilton",
+          "Kitchener", "Montreal", "Ottawa",
+          "Quebec City", "Toronto", "Vancouver",
+          "Winnipeg"]
+
+puts "Creating Tutors ..."
+forced_id = 1
+500.times do |u_id|
+  if u_id.odd?
+    create_tutor(forced_id, u_id, CITIES)
+    forced_id += 1
+=======
 ## TUTORS and STUDENTS
 puts "Creating Tutors and Students..."
 User.all.each do |user|
@@ -111,6 +133,7 @@ User.all.each do |user|
     create_tutor(user.id)
   else
     create_student(user.id)
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
   end
 end
 

@@ -7,6 +7,19 @@ class TutorsController < ApplicationController
     render json: @tutors
   end
 
+  # GET /tutors/search/
+  # def search
+  #   puts 'in search endpoint. params:'
+  #   puts params
+  #   search_term = params[:search_term]
+  #   search_term[0] = ''
+  #   subject = Subject.find_by(name: search_term)
+  #   puts subject.inspect
+  #   tutors = subject.tutors
+  #   puts subject.tutors
+  #   render json: tutors, status: 200
+  # end
+
   # GET /tutors/1
   def show
     tutor = Tutor.find(params["id"])
@@ -36,7 +49,6 @@ class TutorsController < ApplicationController
   # POST /tutors
   def create
     console.log('Im in creat tutor')
-    byebug
     @tutor = Tutor.new(tutor_params)
 
     if @tutor.save
@@ -59,19 +71,6 @@ class TutorsController < ApplicationController
   def destroy
     @tutor.destroy
     redirect_to tutors_url, notice: 'Tutor was successfully destroyed.'
-  end
-
-  # Search /tutors/search/:term
-  def search
-    puts 'in search endpoint. subject:'
-    search_term = params[:search_term]
-    puts search_term
-    # search_term[0] = ''
-    subject = Subject.find_by(name: search_term)
-    puts subject.inspect
-    tutors = subject.tutors
-    puts subject.tutors
-    render json: tutors, status: 200
   end
 
 

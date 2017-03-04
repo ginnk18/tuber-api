@@ -8,18 +8,18 @@ default: &default
 development:
   <<: *default
   database: tuber_api_dev
-  username: vagrant
-  password: vagrant
+  username: scott
+  password: scott
 
 test:
   <<: *default
   database: tuber_api_test
-  username: vagrant
-  password: vagrant
+  username: scott
+  password: scott
 
 production:
   <<: *default
   database: tuber_api_prod
-  username: vagrant
-  password: vagrant
+  username: scott
+  password: scott
 

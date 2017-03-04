@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post    'sessions'     => 'sessions#create'
   delete  'sessions/:id' => 'sessions#destroy'
 
-  get 'tutors/search/:search_term' => 'tutors#search'
+  #get 'tutors/search/' => 'tutors#search'
+  get 'search/' => 'search#index'
 
 end
