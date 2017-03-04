@@ -8,13 +8,11 @@ class ReviewsController < ApplicationController
   def create
     tutor = Tutor.find(params["tutor_id"])
     @review = tutor.reviews.new(review_params)
-
     if @review.save
-      response = {status: "Your review has been saved", reviews: tutor.reviews}, status: :created
+      render json: {status: "Your review has been saved", reviews: tutor.reviews}, status: :created
     else
-      response = {status: "Couldn't save that", reviews: tutor.reviews}, status: :bad_request
+      render json: {status: "Couldn't save that", reviews: tutor.reviews}, status: :bad_request
     end
-    render json: response
   end
 
   # PATCH/PUT /reviews/1
@@ -40,6 +38,8 @@ class ReviewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def review_params
-      params.fetch(:review, {})
+      parm = params.fetch(:review, {}).permit!
+      p 'params', parm
+      parm
     end
 end

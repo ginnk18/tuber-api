@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   resources :agents
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :tutors
+  resources :tutors do
+    resources :reviews, only: [:create, :destroy, :update]
+  end
+  
   resources :students
-  resources :reviews
   resources :subjects
   resources :users
 

@@ -18,7 +18,8 @@ class SessionsController < ApplicationController
 
   def destroy
     token = params[:id]
-    token[0] = ''  # Get rid of the prepended colon
+    p token
+    # token[0] = ''  # Get rid of the prepended colon
     user = User.where(token: token).first
     head 404 and return unless user
     user.regenerate_token

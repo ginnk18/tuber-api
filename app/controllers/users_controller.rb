@@ -36,16 +36,28 @@ class UsersController < ApplicationController
         render json: {status: "User successfully created", user: tutor}, status: :created
       else
         # SAVE STUDENT INFO
+        params['current_location'] ||= {
+                        country: 'Canada',
+                        city: Faker::Address.city,
+                        long: 50 + (rand(900_000) / 10_000.0),
+                        lat: 50 + (rand(300_000) / 10_000.0),
+                        other: Faker::Address.street_address
+                      }.to_json
         student = Student.new(name: params['name'],
                               email: params['email'],
                               user_id: user['id'],
+                              current_location: params['current_location']
         )
         student.save
-        render json: {status: "User successfully created", user: student}, status: :created
+        render json: {status: "User successfully created", user: student},
+             include: {:user => {only: :token}},
+             status: :created
       end
       
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: user.errors.full_messages },
+             include: {:user => {only: :token}},
+             status: :bad_request
     end
   end
 
