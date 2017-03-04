@@ -32,7 +32,7 @@ class SearchController < ApplicationController
 
       # Check if rate is in range
       if !((tutor.rate_cents/100 > params[:rate_range].to_i &&
-            tutor.rate_cents/100 > params[:rate_range].to_i) ||
+            tutor.rate_cents/100 < params[:rate_range].to_i + 20) ||
             params[:rate_range] == "*")
         puts 'here3'
         included = false
