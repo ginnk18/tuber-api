@@ -6,7 +6,12 @@ class SessionsController < ApplicationController
     head 406 and return unless user
     if user.authenticate(params[:password])
       user.regenerate_token
-      render json: user, status: :created, meta: default_meta and return
+      this_user = user.tutor || user.student
+      this_user.email = user.email
+      render json: this_user,
+             include: {:user => {only: :token}},
+             status: :created,
+             meta: default_meta and return
     end
     head 403
   end

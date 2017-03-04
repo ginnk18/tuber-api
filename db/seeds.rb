@@ -13,9 +13,8 @@ end
 
 # Let's do this ...
 puts 'building the factories'
-def create_user(id)
+def create_user
   User.create!(
-    id:               id,
     description:      Faker::Hipster.paragraph(5),
     email:            Faker::Internet.free_email + id.to_s,
     student_or_tutor: ["student", "tutor"].sample,
@@ -27,9 +26,12 @@ def create_subject(subject)
   Subject.create!(name: subject)
 end
 
+<<<<<<< HEAD
 def create_tutor(id, u_id, cities)
+=======
+def create_tutor(u_id)
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
   Tutor.create!(
-    id:               id,
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
     experience:       "#{1 + rand(30)} years tutoring",
@@ -49,9 +51,8 @@ def create_tutor(id, u_id, cities)
   )
 end
 
-def create_student(id, u_id)
+def create_student(u_id)
   Student.create!(
-    id: id,
     name:             Faker::Name.name,
     current_location: {
                         country: 'Canada',
@@ -92,7 +93,11 @@ User.destroy_all
 
 ## USERS
 puts "Creating Users ..."
+<<<<<<< HEAD
 500.times { |id| create_user(id) }
+=======
+100.times { create_user }
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
 
 ## SUBJECTS
 puts "Creating Subjects ..."
@@ -107,6 +112,7 @@ SUBJECTS = [
 ]
 SUBJECTS.each { |s| create_subject(s) }
 
+<<<<<<< HEAD
 ## TUTORS
 CITIES = ["Calgary", "Edmonton", "Hamilton",
           "Kitchener", "Montreal", "Ottawa",
@@ -119,6 +125,15 @@ forced_id = 1
   if u_id.odd?
     create_tutor(forced_id, u_id, CITIES)
     forced_id += 1
+=======
+## TUTORS and STUDENTS
+puts "Creating Tutors and Students..."
+User.all.each do |user|
+  if user.student_or_tutor == "tutor"
+    create_tutor(user.id)
+  else
+    create_student(user.id)
+>>>>>>> 7362f7f71f47a4879d126ad10bb848c43daf97a8
   end
 end
 
@@ -130,19 +145,12 @@ Tutor.all.each do |tutor|
   tutor.subjects = subjects.uniq
 end
 
-## STUDENTS
-puts "Creating students ..."
-forced_id = 1
-100.times do |u_id|
-  if u_id.even?
-    create_student(forced_id, u_id)
-    forced_id += 1
-  end
-end
-
 ## REVIEWS
 puts "Creating reviews ..."
-[*1..50].combination(2) do |tutor_id, student_id|
+tutors = Tutor.all.pluck(:id).to_a
+p tutors.take(5)
+students = Student.all.pluck(:id).to_a
+tutors.product(students).each do |tutor_id, student_id|
   create_review(tutor_id, student_id) if [true, false].sample
 end
 

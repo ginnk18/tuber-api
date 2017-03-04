@@ -11,6 +11,6 @@ class User < ApplicationRecord
     self.email = self.email.delete(' ').downcase
   end
 
-  has_many :tutors
-  has_many :students
+  has_one :tutor
+  has_one :student
 end
