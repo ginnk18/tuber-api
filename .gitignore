@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io
 
+# Additions by tubers
+database.yml
+secrets.yml
 
 ### Ruby ###
 *.gem
