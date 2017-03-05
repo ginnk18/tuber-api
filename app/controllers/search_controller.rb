@@ -2,9 +2,8 @@ class SearchController < ApplicationController
 
   # GET /search
   def index
-    #TO DO: Apply all filters to tutors list
-    puts 'in search endpoint. params:'
-    puts params.inspect
+
+    # First filter by associated subject
     if params[:subject] == "*"
       tutors = Tutor.all
     else
@@ -12,25 +11,23 @@ class SearchController < ApplicationController
       tutors = subject.tutors
     end
 
+    # Then filter by other attributes that aren't in activeRecord
     search_result = []
     tutors.each do |tutor|
       included = true
 
-      # Check availability
-      if !(tutor.status_code == params[:status_code] || params[:status_code] == "*")
+      if !(tutor.status_code.to_i == params[:status_code].to_i || params[:status_code] == "*")
         puts 'here1'
         included = false
         next
       end
 
-      # Check city
       if !(JSON(tutor.current_location)["city"] == params[:city] || params[:city] == "*")
         puts 'here2'
         included = false
         next
       end
 
-      # Check if rate is in range
       if !((tutor.rate_cents/100 > params[:rate_range].to_i &&
             tutor.rate_cents/100 < params[:rate_range].to_i + 20) ||
             params[:rate_range] == "*")
@@ -44,8 +41,29 @@ class SearchController < ApplicationController
         search_result.push(tutor)
       end
     end
-    puts search_result.length
-    render json: search_result, status: 200
+
+    # Finally, sort if applicable
+    case params[:sort]
+    when "*"
+
+      render json: search_result.take(25), status: 200
+
+    when "rate-lowest-first"
+
+      search_result = search_result.sort_by {|tutor| tutor["rate_cents"]}
+      render json: search_result.take(25), status: 200
+
+    when "rate-highest-first"
+
+      search_result = search_result.sort_by {|tutor| tutor["rate_cents"]}
+      render json: search_result.reverse.take(25), status: 200
+
+    when "review"
+
+      search_result = search_result.sort_by {|tutor| [tutor.reviews.average(:rating) ? 1 : 0, tutor.reviews.average(:rating)]}
+      render json: search_result.reverse.take(25), status: 200
+    end
+
   end
 
 
