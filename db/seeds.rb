@@ -19,6 +19,11 @@ CITIES = ["Calgary", "Edmonton", "Hamilton",
           "Quebec City", "Toronto", "Vancouver",
           "Winnipeg"]
 
+HOURS = [
+      "08", "09", "10", "11", "12",
+      "13", "14", "15", "16", "17"
+    ]
+
 def create_user(id)
   User.create!(
     description:      Faker::Hipster.paragraph(5),
@@ -38,7 +43,14 @@ def create_tutor(u_id)
     education:        Faker::Educator.course,
     experience:       "#{1 + rand(30)} years tutoring",
     phone:            "#{400 + rand(280)}-#{100 + rand(899)}-#{2000 + rand(7999)}",
-    hours:            { mon: [[9, 17]], tue: [[9, 17]], wed: [[9, 17]], thu: [[9, 17]], fri: [[9, 17]], sat: [[9, 17]], sun: [[9, 17]]}.to_json,
+    hours:            { "Mon": HOURS[rand(10)..10],
+                        "Tue": HOURS[rand(10)..10],
+                        "Wed": HOURS[rand(10)..10],
+                        "Thu": HOURS[rand(10)..10],
+                        "Fri": HOURS[rand(10)..10],
+                        "Sat": HOURS[rand(10)..10],
+                        "Sun": HOURS[rand(10)..10]
+                      }.to_json,
     rate_cents:       rand(100) * 100,
     current_location: {
                         country: 'Canada',

@@ -13,7 +13,9 @@ class ReviewsController < ApplicationController
              :include => :student,
              status: :created
     else
-      render json: status: :bad_request
+      render json: tutor.reviews,
+             :include => :student,
+             status: :bad_request
     end
   end
 
