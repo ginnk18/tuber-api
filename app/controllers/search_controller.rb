@@ -46,7 +46,7 @@ class SearchController < ApplicationController
     case params[:sort]
     when "*"
 
-      render json: search_result.take(25), status: 200
+      render json: search_result.take(25), :include => :user, status: 200
 
     when "rate-lowest-first"
 
