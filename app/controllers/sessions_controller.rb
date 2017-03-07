@@ -12,10 +12,14 @@ class SessionsController < ApplicationController
       location = JSON.parse(this_user.current_location)
       this_user.current_location = {country: location["country"],
                                     city: location["city"],
-                                    long: params[:lng],
-                                    lat: params[:lat],
-                                    other: location["other"]}
+                                    long: params['long'],
+                                    lat: params['lat'],
+                                    other: location["other"]}.to_json
+      # this_user.current_location['long'] = params['long']
+      # this_user.current_location['lat'] = params['lat']
       puts "this_user after update", this_user.inspect
+
+      this_user.save
       render json: this_user,
              include: {:user => {only: :token}},
              status: :created,
