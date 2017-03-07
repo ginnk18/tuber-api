@@ -8,6 +8,12 @@ class SessionsController < ApplicationController
       user.regenerate_token
       this_user = user.tutor || user.student
       this_user.email = user.email
+      location = JSON.parse(this_user.current_location)
+      this_user.current_location = {country: location["country"],
+                                    city: location["city"],
+                                    long: params[:lng],
+                                    lat: params[:lat],
+                                    other: location["other"]}
       render json: this_user,
              include: {:user => {only: :token}},
              status: :created,
