@@ -47,10 +47,17 @@ class TutorsController < ApplicationController
 
   # PATCH/PUT /tutors/1
   def update
+    set_tutor
     if @tutor.update(tutor_params)
-      redirect_to @tutor, notice: 'Tutor was successfully updated.'
+      render json: @tutor,
+              include: [
+                {:reviews => {:include => :student}},
+                :subjects,
+                {:user => {only: :description}}
+              ],
+             status: :created
     else
-      render :edit
+      render status: :bad_request
     end
   end
 
