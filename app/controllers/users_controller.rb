@@ -51,7 +51,9 @@ class UsersController < ApplicationController
           tutor.subjects << Subject.where(name: subject)
         end
         tutor.save
-        render json: {status: "User successfully created", user: tutor}, status: :created
+        render json: {status: "User successfully created", user: tutor},
+               include: {:user => {only: :token}},
+               status: :created
       else
         # SAVE STUDENT INFO
 

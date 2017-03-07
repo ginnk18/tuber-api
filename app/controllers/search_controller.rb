@@ -8,6 +8,7 @@ class SearchController < ApplicationController
       tutors = Tutor.all
     else
       subject = Subject.find_by(name: params[:subject])
+      puts 'subject retrieved: ', subject
       tutors = subject.tutors
     end
 
