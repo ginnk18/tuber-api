@@ -27,9 +27,6 @@ class UsersController < ApplicationController
                    description: "some placeholder description till we figure out what to do"}
     user = User.new(new_user_params)
     if user.save
-      puts 'city loc'
-      puts CITY_LOCATIONS
-      puts CITY_LOCATIONS[params['city'].to_sym]
       if user.student_or_tutor == 'tutor'
         # SAVE TUTOR INFO
         tutor = Tutor.new(name:             params['name'],

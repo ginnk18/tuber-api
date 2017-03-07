@@ -15,10 +15,6 @@ class SessionsController < ApplicationController
                                     long: params['long'],
                                     lat: params['lat'],
                                     other: location["other"]}.to_json
-      # this_user.current_location['long'] = params['long']
-      # this_user.current_location['lat'] = params['lat']
-      puts "this_user after update", this_user.inspect
-
       this_user.save
       render json: this_user,
              include: {:user => {only: :token}},
@@ -30,10 +26,9 @@ class SessionsController < ApplicationController
 
   def destroy
     token = params[:id]
-    p token
-    # token[0] = ''  # Get rid of the prepended colon
     user = User.where(token: token).first
     head 404 and return unless user
+    this_user = user.tutor || user.student
     user.regenerate_token
     head 204
   end
