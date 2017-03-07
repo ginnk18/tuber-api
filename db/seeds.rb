@@ -19,6 +19,17 @@ CITIES = ["Calgary", "Edmonton", "Hamilton",
           "Quebec City", "Toronto", "Vancouver",
           "Winnipeg"]
 
+CITY_LOCATIONS = {"Calgary": {lat: 51.0486, long: -114.0708},
+              "Edmonton": {lat: 53.5444, long: -113.4909},
+              "Hamilton": {lat: 43.2557, long: -79.8711},
+              "Kitchener": {lat: 43.4503, long: -80.4832},
+              "Montreal": {lat: 45.5017, long: -73.5673},
+              "Ottawa": {lat: 45.4215, long: 75.6972},
+              "Quebec City": {lat: 46.8139, long: -71.2080},
+              "Toronto": {lat: 43.6532, long: -79.3832},
+              "Vancouver": {lat: 49.2827, long: -123.1207},
+              "Winnipeg": {lat: 49.8951, long: -97.1384}}
+
 def create_user(id)
   User.create!(
     description:      Faker::Hipster.paragraph(5),
