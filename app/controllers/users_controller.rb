@@ -3,6 +3,17 @@ class UsersController < ApplicationController
   # before_action :validate_user, only: [:create, :update, :destroy]
   # before_action :validate_type, only: [:create, :update]
 
+  CITY_LOCATIONS = {"Calgary": {lat: 51.0486, long: -114.0708},
+                    "Edmonton": {lat: 53.5444, long: -113.4909},
+                    "Hamilton": {lat: 43.2557, long: -79.8711},
+                    "Kitchener": {lat: 43.4503, long: -80.4832},
+                    "Montreal": {lat: 45.5017, long: -73.5673},
+                    "Ottawa": {lat: 45.4215, long: 75.6972},
+                    "Quebec City": {lat: 46.8139, long: -71.2080},
+                    "Toronto": {lat: 43.6532, long: -79.3832},
+                    "Vancouver": {lat: 49.2827, long: -123.1207},
+                    "Winnipeg": {lat: 49.8951, long: -97.1384}}
+
   def index
     users = User.all
     render json: users
@@ -16,8 +27,6 @@ class UsersController < ApplicationController
                    description: "some placeholder description till we figure out what to do"}
     user = User.new(new_user_params)
     if user.save
-      puts 'student_or_tutor'
-      puts user.student_or_tutor
       if user.student_or_tutor == 'tutor'
         # SAVE TUTOR INFO
         tutor = Tutor.new(name:             params['name'],
@@ -27,14 +36,21 @@ class UsersController < ApplicationController
                           phone:            params['phone'],
                           hours:            params['hours'],
                           rate_cents:       params['rate_cents'],
-                          current_location: params['current_location'],
-                          is_available:     params['is_available'],
-                          subjects_taught:  params['subjects_taught'],
+                          current_location: {country: "Canada",
+                                             city: params['city'],
+                                             long: CITY_LOCATIONS[params['city'].to_sym][:long],
+                                             lat: CITY_LOCATIONS[params['city'].to_sym][:lat],
+                                             other: "other stuff about location"}.to_json,
                           avatar:           params['avatar'],
                           user_id:          user['id']
         )
+        params['subjects'].each do |subject|
+          tutor.subjects << Subject.where(name: subject)
+        end
         tutor.save
-        render json: {status: "User successfully created", user: tutor}, status: :created
+        render json: {status: "User successfully created", user: tutor},
+               include: {:user => {only: :token}},
+               status: :created
       else
         # SAVE STUDENT INFO
 
@@ -58,7 +74,7 @@ class UsersController < ApplicationController
              include: {:user => {only: :token}},
              status: :created
       end
-      
+
     else
       render json: { errors: user.errors.full_messages },
              include: {:user => {only: :token}},

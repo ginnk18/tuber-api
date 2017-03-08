@@ -16,12 +16,6 @@ ActiveRecord::Schema.define(version: 20170306022808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ar_internal_metadata", primary_key: "key", id: :string, force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "messages", force: :cascade do |t|
     t.text     "text"
     t.integer  "sender_id"

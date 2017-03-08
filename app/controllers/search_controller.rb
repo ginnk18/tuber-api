@@ -2,12 +2,13 @@ class SearchController < ApplicationController
 
   # GET /search
   def index
-
+    puts 'params in search controller: ', params
     # First filter by associated subject
     if params[:subject] == "*"
       tutors = Tutor.all
     else
       subject = Subject.find_by(name: params[:subject])
+      puts 'subject retrieved: ', subject
       tutors = subject.tutors
     end
 
@@ -47,6 +48,7 @@ class SearchController < ApplicationController
     when "*"
 
       render json: search_result.take(25), :include => [:user, :reviews], status: 200
+
 
     when "rate-lowest-first"
 

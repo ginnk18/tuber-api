@@ -4,6 +4,7 @@ class TutorsController < ApplicationController
    # GET /tutors
   def index
     @tutors = Tutor.all
+    puts "tutor count: ", Tutor.count
     render json: @tutors
   end
 
