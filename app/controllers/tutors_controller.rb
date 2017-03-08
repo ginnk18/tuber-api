@@ -47,8 +47,25 @@ class TutorsController < ApplicationController
 
   # PATCH/PUT /tutors/1
   def update
-    set_tutor
-    if @tutor.update(tutor_params)
+    @tutor = set_tutor
+    params[:tutor].each do |key, val|
+      if (key == "subjects")
+        @tutor.subjects.destroy_all
+        val.each { |subject| @tutor.subjects.new(name: subject)}
+      end
+
+      if (key == "current_location")
+        curr_location = JSON.parse(@tutor.current_location)
+        curr_location[:other] = val[:other] || curr_location[:other]
+        @tutor.current_location = curr_location.to_json
+      end
+
+      @tutor.phone = val if key == "phone" && !val.empty?
+      @tutor.education = val if key == "education" && !val.empty?
+      @tutor.experience = val if key == "experience" && !val.empty?
+      @tutor.rate_cents = val.to_i if key == "rate_cents" && val.to_i > 0
+    end
+    if @tutor.save
       render json: @tutor,
               include: [
                 {:reviews => {:include => :student}},
@@ -76,6 +93,13 @@ class TutorsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tutor_params
-      params.fetch(:tutor, {})
+        byebug
+      if (params[:tutor][:current_location])
+        params[:tutor][:current_location][:other] ||= JSON.parse(@tutor.current_location)[:other]
+        params[:tutor][:current_location] = (params[:current_location]).to_json
+        
+        params[:tutor].delete :subjects if params[:tutor][:subjects]
+      end
+      params.fetch(:tutor, {}).permit!
     end
 end

@@ -41,6 +41,7 @@ def create_tutor(u_id)
   Tutor.create!(
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
+    email:            User.find(u_id).email,
     experience:       "#{1 + rand(30)} years tutoring",
     phone:            "#{400 + rand(280)}-#{100 + rand(899)}-#{2000 + rand(7999)}",
     hours:            { "Mon": HOURS[rand(10)..10],
