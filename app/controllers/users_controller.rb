@@ -26,9 +26,16 @@ class UsersController < ApplicationController
                    student_or_tutor: params['student_or_tutor'],
                    description: "some placeholder description till we figure out what to do"}
     user = User.new(new_user_params)
+    puts 'here 1'
     if user.save
+      puts 'here 2'
       if user.student_or_tutor == 'tutor'
         # SAVE TUTOR INFO
+        puts 'here 3'
+        puts params.inspect
+        puts 'here 3.5'
+        puts params['city']
+        puts 'here 3.7'
         tutor = Tutor.new(name:             params['name'],
                           education:        params['education'],
                           experience:       params['experience'],
@@ -36,6 +43,7 @@ class UsersController < ApplicationController
                           phone:            params['phone'],
                           hours:            params['hours'],
                           rate_cents:       params['rate_cents'],
+                          status_code:      "1",
                           current_location: {country: "Canada",
                                              city: params['city'],
                                              long: CITY_LOCATIONS[params['city'].to_sym][:long],
@@ -44,9 +52,11 @@ class UsersController < ApplicationController
                           avatar:           params['avatar'],
                           user_id:          user['id']
         )
+        puts 'here 4'
         params['subjects'].each do |subject|
           tutor.subjects << Subject.where(name: subject)
         end
+        puts 'here 5'
         tutor.save
         render json: {status: "User successfully created", user: tutor},
                include: {:user => {only: :token}},

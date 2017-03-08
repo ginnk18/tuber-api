@@ -8,18 +8,25 @@ class SessionsController < ApplicationController
       user.regenerate_token
       this_user = user.tutor || user.student
       this_user.email = user.email
-      this_user.status_code = 1
-      location = JSON.parse(this_user.current_location)
-      this_user.current_location = {country: location["country"],
-                                    city: location["city"],
-                                    long: params['long'],
-                                    lat: params['lat'],
-                                    other: location["other"]}.to_json
-      this_user.save
-      render json: this_user,
-             include: {:user => {only: :token}},
-             status: :created,
-             meta: default_meta and return
+      if user.student_or_tutor == "tutor"
+        this_user.status_code = 1
+        location = JSON.parse(this_user.current_location)
+        this_user.current_location = {country: location["country"],
+                                      city: location["city"],
+                                      long: params['long'],
+                                      lat: params['lat'],
+                                      other: location["other"]}.to_json
+        this_user.save
+        render json: this_user,
+               include: {:user => {only: :token}},
+               status: :created,
+               meta: default_meta and return
+      else
+         render json: this_user,
+               include: {:user => {only: :token}},
+               status: :created,
+               meta: default_meta and return
+      end
     end
     head 403
   end

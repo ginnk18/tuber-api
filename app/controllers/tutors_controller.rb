@@ -49,6 +49,8 @@ class TutorsController < ApplicationController
   # PATCH/PUT /tutors/1
   def update
     set_tutor
+
+    @tutor.save
     if @tutor.update(tutor_params)
       render json: @tutor,
               include: [
