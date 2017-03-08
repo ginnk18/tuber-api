@@ -47,22 +47,23 @@ class SearchController < ApplicationController
     case params[:sort]
     when "*"
 
-      render json: search_result.take(25), status: 200
+      render json: search_result.take(25), :include => [:user, :reviews], status: 200
+
 
     when "rate-lowest-first"
 
       search_result = search_result.sort_by {|tutor| tutor["rate_cents"]}
-      render json: search_result.take(25), status: 200
+      render json: search_result.take(25), :include => [:user, :reviews], status: 200
 
     when "rate-highest-first"
 
       search_result = search_result.sort_by {|tutor| tutor["rate_cents"]}
-      render json: search_result.reverse.take(25), status: 200
+      render json: search_result.reverse.take(25), :include => [:user, :reviews], status: 200
 
     when "review"
 
       search_result = search_result.sort_by {|tutor| [tutor.reviews.average(:rating) ? 1 : 0, tutor.reviews.average(:rating)]}
-      render json: search_result.reverse.take(25), status: 200
+      render json: search_result.reverse.take(25), :include => [:user, :reviews], status: 200
     end
 
   end
