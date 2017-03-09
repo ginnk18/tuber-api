@@ -48,6 +48,9 @@ def create_subject(subject)
 end
 
 def create_tutor(u_id)
+  city = CITIES.sample
+  @lat = CITY_LOCATIONS[city.to_sym][:lat] + rand()*[-1,1].sample / 10
+  @long = CITY_LOCATIONS[city.to_sym][:long] + rand()*[-1,1].sample / 10
   Tutor.create!(
     name:             Faker::Name.name,
     education:        Faker::Educator.course,
@@ -65,9 +68,9 @@ def create_tutor(u_id)
     rate_cents:       rand(100) * 100,
     current_location: {
                         country: 'Canada',
-                        city: CITIES.sample,
-                        long: 50 + (rand(900_000) / 10_000.0),
-                        lat: 50 + (rand(300_000) / 10_000.0),
+                        city: city,
+                        long: @long,
+                        lat: @lat,
                         other: Faker::Address.street_address
                       }.to_json,
     status_code:     [*1..3].sample,
@@ -118,7 +121,7 @@ User.destroy_all
 
 ## USERS
 puts "Creating Users ..."
-200.times { |email_id| create_user email_id }
+400.times { |email_id| create_user email_id }
 
 ## SUBJECTS
 puts "Creating Subjects ..."
@@ -158,7 +161,7 @@ tutors = Tutor.all.pluck(:id).to_a
 p tutors.take(5)
 students = Student.all.pluck(:id).to_a
 tutors.product(students).each do |tutor_id, student_id|
-  create_review(tutor_id, student_id) if [true, false].sample
+  create_review(tutor_id, student_id) if [true, false, false, false].sample
 end
 
 puts "DONE!"
