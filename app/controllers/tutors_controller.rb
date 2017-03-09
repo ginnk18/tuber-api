@@ -66,6 +66,7 @@ class TutorsController < ApplicationController
       @tutor.education = val if key == "education" && !val.empty?
       @tutor.experience = val if key == "experience" && !val.empty?
       @tutor.rate_cents = val.to_i if key == "rate_cents" && val.to_i > 0
+      @tutor.description = val if key == "description"  && !val.empty?
     end
     if @tutor.save
       render json: @tutor,

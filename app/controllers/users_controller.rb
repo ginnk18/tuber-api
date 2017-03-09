@@ -24,7 +24,7 @@ class UsersController < ApplicationController
                    token: SecureRandom.base58(24),
                    email: params['email'],
                    student_or_tutor: params['student_or_tutor'],
-                   description: "some placeholder description till we figure out what to do"}
+                   description: "I hold a PhD and specialize in Twentieth Century history. Currently, I tutor both university and high school students who want to improve their essay writing or need help with concepts as they prepare for exams."}
     user = User.new(new_user_params)
     puts 'here 1'
     if user.save
