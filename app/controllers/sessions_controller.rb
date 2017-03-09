@@ -37,6 +37,7 @@ class SessionsController < ApplicationController
     head 404 and return unless user
     this_user = user.tutor || user.student
     user.regenerate_token
+    user.tutor.update({status_code: 3});
     head 204
   end
 end
